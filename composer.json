@@ -1,0 +1,17 @@
+{
+    "name": "RainSunshineCloud/sql",
+    "description": "这是一个关系型数据库的Sql类",
+    "type": "composer-plugin",
+    "authors": [
+        {
+            "name": "RainSunshineCloud",
+            "email": "931035553@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "RainSunshineCloud\\" : "src/"
+        }
+    }
+}
