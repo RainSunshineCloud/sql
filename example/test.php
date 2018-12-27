@@ -1,5 +1,5 @@
 <?php 
-include "../vendor/autoload.php";
+include "../../../autoload.php";
 use RainSunshineCloud\Sql;
 use RainSunshineCloud\SqlException;
 try {

@@ -5,7 +5,7 @@
 - 通过setPrepare 判定是否使用预处理
 ```
 <?php 
-include "../vendor/autoload.php";
+include "../../../autoload.php";
 use RainSunshineCloud\Sql;
 use RainSunshineCloud\SqlException;
 try {
