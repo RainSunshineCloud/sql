@@ -383,14 +383,11 @@ class Sql
      */
     protected function delete()
     {
-        if (!$this->table) {
-            throw new SqlException('table未定义',1008);
-        }
 
         if (!$this->where) {
             throw new SqlException('where未定义',1017);
         }
-
+        
        return sprintf('DELETE FROM %s%s',$this->table,$this->where);
     }
 
@@ -793,7 +790,7 @@ class Sql
         $now_key = $this->preparesignal.$key.$this->varivable_num++;
 
         $this->prepareData[$now_key] = $data;
-        return $key;
+        return $now_key;
 
     }
 
