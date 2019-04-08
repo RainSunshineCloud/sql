@@ -748,7 +748,7 @@ class Sql
          $this->group = '';
          $this->having = '';
          $this->limit = '';
-         $this->incr_data = '';
+         $this->incr_data = [];
          $this->prepareData = [];
     }
 
