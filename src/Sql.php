@@ -728,8 +728,14 @@ class Sql
         switch ($func) {
             case 'from_unixtime':
                 return $func = sprintf('%s(%s,"%s") AS  `%s`',$func,$arg,$other,$alise);
-            default:
+            case 'count':
+            case 'max':
+            case 'min':
+            case 'average':
                return $func = sprintf('%s(%s) AS `%s`',$func,$arg,$other);
+            default:
+                 throw new SqlException('未有{$func}函数',1020);
+            
         }
     }
 
