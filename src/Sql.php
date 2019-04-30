@@ -734,7 +734,7 @@ class Sql
             case 'average':
                return $func = sprintf('%s(%s) AS `%s`',$func,$arg,$other);
             default:
-                 throw new SqlException('未有{$func}函数',1020);
+                 throw new SqlException("未有{$func}函数",1020);
             
         }
     }
