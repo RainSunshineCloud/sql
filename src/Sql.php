@@ -129,8 +129,14 @@ class Sql
             case 'IN': //in
                 $sql = $this->builderIn($field,$values);
                 break;
+            case 'NOTIN':
+                $sql = $this->builderIn($field,$values,true);
+                break;
             case 'BETWEEN'://between
                 $sql = $this->builderBetween($field,$values);
+                break;
+            case "NOTBETWEEN":
+                $sql = $this->builderBetween($field,$values,true);
                 break;
             case 'IS'://is
                 $field = $this->getField($field);
@@ -186,7 +192,7 @@ class Sql
      * @param  string $field  [字段名]
      * @param  [array | string] $values [值]
      */
-    private function builderIn(string $field,$values)
+    private function builderIn(string $field,$values,bool $not = false)
     {
         if (is_string($values)) {
             $values = explode(',',$values);
@@ -196,7 +202,8 @@ class Sql
 
         $values = $this->prepare($values,$field,'in');
         $field = $this->getField($field);
-        return sprintf('%s IN (%s)',$field,$values);
+        $op = $not ? "NOT IN" : "IN";
+        return sprintf('%s %s (%s)',$field,$op,$values);
     }
 
     /**
@@ -205,12 +212,13 @@ class Sql
      * @param  array  $values [值]
      * @return [type]         [description]
      */
-    private function builderBetween(string $field,array $values) 
+    private function builderBetween(string $field,array $values,bool $not = false) 
     {
         if (count($values) >= 2) {
             $values[0] = $this->prepare($values[0],$field);
             $values[1] = $this->prepare($values[1],$field);
             $field = $this->getField([$field]);
+            $op = $not ? 'NOTBETWEEN' : 'BETWEEN';
             return sprintf('%s BETWEEN %s AND %s',$field,$values[0],$values[1]);
         } else {
             throw new SqlException('Between 参数错误',1005);
@@ -231,7 +239,7 @@ class Sql
         if (! $child instanceof Sql) {
              throw new SqlException('子查询值必须是Sql对象',1015);
         }
-        if (in_array($op,['EXISTS','NOT EXISTS'])) {
+        if (in_array($op,['EXISTS','NOTEXISTS'])) {
             return sprintf('%s (%s)',$op,$child->get());
         }
         return sprintf('%s %s (%s)',$field,$op,$child->get());
