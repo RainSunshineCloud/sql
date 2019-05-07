@@ -782,6 +782,7 @@ class Sql
             return $data;
         }
 
+        $key = str_replace('.', '_', $key);
         if ($special == 'in') {
             $all_key = [];
             foreach ($data as $k => $v) {
