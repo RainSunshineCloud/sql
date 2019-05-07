@@ -399,7 +399,7 @@ class Sql
     */
     protected  function insertAll(array $data,$func = '')
     {
-        if ( !is_array($data)|| !$one = reset($data) || !is_array($one)) {
+        if ( !is_array($data)|| !($one = reset($data)) || !is_array($one)) {
             throw new SqlException('insert 必须是二维数组',1009);
         }
 
