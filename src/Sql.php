@@ -30,7 +30,8 @@ class Sql
     {
         $join = strtoupper($join);
         if ($join_table instanceof sql && !empty($alise)) {
-            $join_table = sprintf('(%s) AS `%s`',$join_table -> get(),$alise);
+            $this->prepareData += $join_table->getPrepareData();
+            $join_table = sprintf('(%s) AS `%s`',$join_table->get(),$alise);
         } elseif (!empty($alise)) {
             $join_table = sprintf('`%s` AS `%s`',$join_table,$alise);
         } else {
@@ -194,6 +195,11 @@ class Sql
      */
     private function builderIn(string $field,$values,bool $not = false)
     {
+        
+        if (empty($values)) {
+            throw new SqlException('In条件值不能为空',1004);
+        }
+
         if (is_string($values)) {
             $values = explode(',',$values);
         } else if (!is_array($values)) {
